@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="news-view">
+    <h2>Latest News</h2>
+    <form method="get">
+        <input type="text" name="keyword" placeholder="Search keyword" value="{{ keyword }}">
+        <select name="category">
+            <option value="">All Categories</option>
+            <option value="technology" {% if category == 'technology' %}selected{% endif %}>Technology</option>
+            <option value="sports" {% if category == 'sports' %}selected{% endif %}>Sports</option>
+            <option value="business" {% if category == 'business' %}selected{% endif %}>Business</option>
+            <!-- Add more categories as needed -->
+        </select>
+        <button type="submit">Search News</button>
+    </form>
+    {% if news.articles %}
+        <div class="news-cards">
+            {% for article in news.articles %}
+                <div class="news-card">
+                    <h3>{{ article.title }}</h3>
+                    <p>{{ article.description }}</p>
+                    <a href="{{ article.url }}" target="_blank">Read more</a>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No news articles found.</p>
+    {% endif %}
+</div>
+{% endblock %}
